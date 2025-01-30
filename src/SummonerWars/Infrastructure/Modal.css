@@ -1,0 +1,20 @@
+.greyModal {
+  background-color: rgba(40,40,40,0.7);;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modalContent {
+  position: fixed;
+  width: 75%;
+  left: 50%;
+  margin-left: -37.5%;
+  margin-top: 6%;
+  height:500px;
+  background-color: white;
+  border: solid 4px black;
+  border-radius: 30px;
+}
