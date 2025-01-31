@@ -1,16 +1,15 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import Field from "./Field";
-import { FieldState, State } from "./Domain/FieldState";
 import Modal from "./Infrastructure/Modal";
 import GameContext from "./Infrastructure/game-context";
 import UnitDisplay from "./Application/UnitDisplay";
 import PlayerDisplay from "./Application/PlayerDisplay";
-import { Deck, Deck_CaveGoblins } from "./Domain/Deck";
+import { Deck } from "./Domain/Deck";
+import { Faction_CaveGobelins } from "./Domain/Faction";
 
 const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
   ({ fieldHeight, fieldWidth }) =>
 {
-  const [fieldState, setFieldState] = useState<FieldState>(initiateFieldState(fieldHeight, fieldWidth));
   const {playerOne, playerTwo, setPlayerOne, setPlayerTwo, selectedState} = useContext(GameContext);
 
   return (
@@ -18,7 +17,7 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
       {!playerOne && 
         <Modal>
           <div>Player 1 : Choose your deck</div>
-          <button onClick={() => setPlayerOne({name: "One", mana: 2, deck: Deck_CaveGoblins, graveyard: 0})}>
+          <button onClick={() => setPlayerOne({name: "One", mana: 2, deck: Faction_CaveGobelins.deck, graveyard: [], unitsState: Faction_CaveGobelins.startingPosition})}>
             SetPlayer 1
           </button>
         </Modal>
@@ -26,7 +25,7 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
       {playerOne && !playerTwo && 
         <Modal>
           <div>Player 2 : Choose your deck</div>
-          <button onClick={() => setPlayerTwo({name: "Two", mana: 3, deck: new Deck([]), graveyard: 0})}>
+          <button onClick={() => setPlayerTwo({name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: []})}>
             SetPlayer 2
           </button>
         </Modal>
@@ -43,7 +42,7 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
             <UnitDisplay unit={selectedState?.unit} />
           </div>
           <div style={{width: "50%", display: "flex", justifyContent: "space-around"}}>
-            <Field fieldState={fieldState} updateFieldstate={(fieldState: FieldState) => {setFieldState(fieldState)}} />
+            <Field fieldHeight={fieldHeight} fieldWidth={fieldWidth} />
           </div>
           <div style={{width: "25%"}}>
             <div style={{border:"1px solid black", height: "100%"}}>
@@ -59,20 +58,6 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
       </div>
     </>
   );
-}
-
-function initiateFieldState(fieldHeight: number, fieldWidth: number): FieldState {
-  let field: Array<Array<State>> = [];
-  for(let i=0; i<fieldHeight; i++) {
-    field[i] = [];
-    for(let j=0; j<fieldWidth; j++) {
-      field[i][j] = {y: i, x: j};
-    }
-  }
-
-  return {
-    field: field
-  };
 }
 
 export default Game;
