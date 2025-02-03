@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { State } from "../Domain/FieldState";
 import { Player } from "../Domain/Player";
 import { Deck } from "../Domain/Deck";
+import { TurnStateTracker } from "../Domain/TurnState";
 
 type Props = {
   setSelectedState: (unit?: State) => void;
@@ -10,6 +11,8 @@ type Props = {
   playerOne?: Player;
   setPlayerTwo: (player: Player) => void;
   playerTwo?: Player;
+  setTurnState: (turnState: TurnStateTracker) => void;
+  turnState: TurnStateTracker;
 };
 
 const GameContext = createContext<Props>({
@@ -19,6 +22,8 @@ const GameContext = createContext<Props>({
   playerOne: {name: "One", mana: 2, deck: new Deck([]), graveyard: [], unitsState: []},
   setPlayerTwo: () => undefined,
   playerTwo: {name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: []},
+  setTurnState: () => undefined,
+  turnState: {currentPlayerName: "", currentTurnState: "Start"},
 });
 
 export default GameContext;

@@ -4,13 +4,16 @@ import Modal from "./Infrastructure/Modal";
 import GameContext from "./Infrastructure/game-context";
 import UnitDisplay from "./Application/UnitDisplay";
 import PlayerDisplay from "./Application/PlayerDisplay";
+import TurnStateDisplay from "./Application/TurnStateDisplay";
 import { Deck } from "./Domain/Deck";
 import { Faction_CaveGobelins } from "./Domain/Faction";
+import { Player } from "./Domain/Player";
+import { TURN_STATE_START_STEP } from "./Domain/TurnState";
 
 const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
   ({ fieldHeight, fieldWidth }) =>
 {
-  const {playerOne, playerTwo, setPlayerOne, setPlayerTwo, selectedState} = useContext(GameContext);
+  const {playerOne, playerTwo, setPlayerOne, setPlayerTwo, setTurnState} = useContext(GameContext);
 
   return (
     <>
@@ -25,7 +28,11 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
       {playerOne && !playerTwo && 
         <Modal>
           <div>Player 2 : Choose your deck</div>
-          <button onClick={() => setPlayerTwo({name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: []})}>
+          <button onClick={() => {
+            const newPlayerTwo: Player = {name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: []};
+            setPlayerTwo(newPlayerTwo);
+            setTurnState({currentPlayerName: playerOne.name, currentTurnState: TURN_STATE_START_STEP});
+          }}>
             SetPlayer 2
           </button>
         </Modal>
@@ -39,7 +46,7 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
         </div>
         <div style={{width: "100%", display: "flex", justifyContent: "space-around"}}>
           <div style={{width: "25%"}}>
-            <UnitDisplay unit={selectedState?.unit} />
+            <UnitDisplay />
           </div>
           <div style={{width: "50%", display: "flex", justifyContent: "space-around"}}>
             <Field fieldHeight={fieldHeight} fieldWidth={fieldWidth} />
@@ -53,6 +60,11 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
         <div style={{width: "100%", display:"flex", justifyContent: "space-around"}}>
           <div style={{width: "50%", display: "flex", justifyContent: "space-around"}}>
             {playerOne && <PlayerDisplay player={playerOne} />}
+          </div>
+        </div>
+        <div style={{width: "100%", display:"flex", justifyContent: "space-around"}}>
+          <div style={{width: "50%", display: "flex", justifyContent: "space-around"}}>
+            <TurnStateDisplay />
           </div>
         </div>
       </div>

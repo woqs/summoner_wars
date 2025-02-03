@@ -1,11 +1,12 @@
 import React, { useContext } from "react"
 import { State } from "../Domain/FieldState";
 import GameContext from "../Infrastructure/game-context";
+import { TURN_STATE_MOVE } from "../Domain/TurnState";
 
 const FieldBox: React.FC<
   {state: State}
 > = ({state}) => {
-  const {selectedState, setSelectedState} = useContext(GameContext);
+  const {selectedState, setSelectedState, turnState} = useContext(GameContext);
 
   return (
     <div
@@ -15,6 +16,13 @@ const FieldBox: React.FC<
       }}
     >
       {state.unit?.name}
+      <div>
+        {turnState?.currentTurnState === TURN_STATE_MOVE && state.unit && state === selectedState && (
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            <button>Move</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
