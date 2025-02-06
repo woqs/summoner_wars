@@ -19,9 +19,9 @@ const GameContext = createContext<Props>({
   setSelectedState: () => undefined,
   selectedState: null,
   setPlayerOne: () => undefined,
-  playerOne: {name: "One", mana: 2, deck: new Deck([]), graveyard: [], unitsState: []},
+  playerOne: {name: "One", mana: 2, deck: new Deck([]), graveyard: [], unitsState: [], isItMe: true},
   setPlayerTwo: () => undefined,
-  playerTwo: {name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: []},
+  playerTwo: {name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: [], isItMe: false},
   setTurnState: () => undefined,
   turnState: {currentPlayerName: "", currentTurnState: "Start"},
 });

@@ -1,4 +1,4 @@
-import { Card, CaveGobelin_BeastRider, CaveGobelin_Blarf, CaveGobelin_EnrageTheHord, CaveGobelin_HordeClimber, CaveGobelin_HordeSlinger, CaveGobelin_PileOn, CaveGobelin_Smeg, CaveGobelin_Sneak, CaveGobelin_Sneeks, CaveGobelin_TheEater, CaveGobelin_Unrelenting, CaveGoblin_Clinger, Portal } from "./Card"
+import { Card, CaveGobelin_BeastRider, CaveGobelin_Blarf, CaveGobelin_EnrageTheHord, CaveGobelin_HordeClimber, CaveGobelin_HordeSlinger, CaveGobelin_PileOn, CaveGobelin_Smeg, CaveGobelin_Sneak, CaveGobelin_TheEater, CaveGobelin_Unrelenting, CaveGoblin_Clinger, Portal } from "./Card"
 
 export class Deck {
   cards: Card[];

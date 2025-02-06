@@ -1,0 +1,13 @@
+.action {
+  background-color: rgba(40,40,40,0.4);
+  margin-top: -19px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.actionButton {
+  margin-top: 40px;
+  height: 25px;
+}

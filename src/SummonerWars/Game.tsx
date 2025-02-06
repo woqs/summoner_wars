@@ -20,7 +20,11 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
       {!playerOne && 
         <Modal>
           <div>Player 1 : Choose your deck</div>
-          <button onClick={() => setPlayerOne({name: "One", mana: 2, deck: Faction_CaveGobelins.deck, graveyard: [], unitsState: Faction_CaveGobelins.startingPosition})}>
+          <button onClick={
+            () => setPlayerOne(
+              {name: "One", mana: 2, deck: Faction_CaveGobelins.deck.shuffle().shuffle(), graveyard: [], unitsState: Faction_CaveGobelins.startingPosition, isItMe: true}
+            )}
+          >
             SetPlayer 1
           </button>
         </Modal>
@@ -29,7 +33,9 @@ const Game: React.FC<{ fieldHeight: number, fieldWidth: number }> =
         <Modal>
           <div>Player 2 : Choose your deck</div>
           <button onClick={() => {
-            const newPlayerTwo: Player = {name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: []};
+            const newPlayerTwo: Player = {
+              name: "Two", mana: 3, deck: new Deck([]), graveyard: [], unitsState: [], isItMe: false
+            };
             setPlayerTwo(newPlayerTwo);
             setTurnState({currentPlayerName: playerOne.name, currentTurnState: TURN_STATE_START_STEP});
           }}>
